@@ -1,4 +1,6 @@
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { db } from "./firebase";
 
 function App() {
   const user = {
@@ -8,6 +10,7 @@ function App() {
 
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPosting, setIsPosting] = useState(false);
 
   const emojiRegex =
     /(?:[\u2700-\u27bf] | [\uFE00-\uFE0F] | [\u1f300-\u1f5ff] | [\u1f600-\u1f64f] | [\u1f680-\u1f6ff] | [\u2600-\u26ff] | [\u2700-\u27bf] | [\u1f1e6-\u1f1ff] | [\u1f900-\u1f9ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1ff] | [\u1f1e6-\u1f1f])+/g;
@@ -20,6 +23,26 @@ function App() {
       setErrorMessage("");
     } else {
       setErrorMessage("Please enter only emojis.");
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!emojiRegex.test(inputValue)) {
+      setErrorMessage("Please enter only emojis.");
+      return;
+    }
+
+    setIsPosting(true); // Set Posting state to true
+
+    try {
+      setDoc(doc(db, "messages"), {
+        text: inputValue,
+        author: "🐼",
+      }); // Add emoji to Firestore
+      setInputValue(""); // Clear input after successful submission
+    } catch (error) {
+      console.error("Error adding emoji:", error);
+      setErrorMessage("An error occurred. Please try again.");
     }
   };
 
@@ -50,6 +73,8 @@ function App() {
       <div className="w-full h-screen overflow-y-scroll max-w-2xl mx-auto relative ">
         <div className="p-2 py-5 bg-black/30 backdrop-blur-md sticky top-0 z-10">
           <h1 className="font-bold text-4xl text-center">emoji chat</h1>
+          <span>{errorMessage}</span>
+          <span>{isPosting}</span>
         </div>
         <div className="relative w-full p-6 md:px-10">
           <Msg emoji="🔥💨⛱🤖" author={{ id: "02", dp: "🙃" }} />
@@ -71,7 +96,10 @@ function App() {
               placeholder="Enter emoji"
               className=" w-full bg-white/30 p-5 pl-8 pr-24  rounded-full backdrop-blur-md"
             />
-            <button className="absolute right-0 p-5 px-8 rounded-full bg-white text-black">
+            <button
+              onSubmit={handleSubmit}
+              className="absolute right-0 p-5 px-8 rounded-full bg-white text-black"
+            >
               post
             </button>
           </div>
