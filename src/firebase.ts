@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
+import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -8,16 +8,17 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAD8QmHGRJ5yh_uOfEoLqrVX2VoS0Or9ZE",
-  authDomain: "emoji-chat-10104.firebaseapp.com",
-  projectId: "emoji-chat-10104",
-  storageBucket: "emoji-chat-10104.appspot.com",
-  messagingSenderId: "369116995845",
-  appId: "1:369116995845:web:4819ccbf28eb4e4015d76c",
-  measurementId: "G-XVDS6KLSLZ",
+  apiKey: "AIzaSyDJ8HZps54M1afuQ20ttGPf-HmfnLZRjkg",
+  authDomain: "emoji-chat-60572.firebaseapp.com",
+  projectId: "emoji-chat-60572",
+  storageBucket: "emoji-chat-60572.appspot.com",
+  messagingSenderId: "312436477622",
+  appId: "1:312436477622:web:0841161ae6a0e34dda6017",
+  measurementId: "G-1J7N7PRH3M",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 export const db = getFirestore(app);
-// const analytics = getAnalytics(app);
