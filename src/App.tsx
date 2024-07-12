@@ -7,7 +7,7 @@ import { EmojiForm } from "./components/EmojiForm";
 function App() {
   const user = {
     id: "04",
-    dp: "🎲",
+    dp: "🍿",
   };
 
   const [inputValue, setInputValue] = useState("");
@@ -50,9 +50,9 @@ function App() {
       </div> */}
       <div className="w-full h-screen overflow-y-scroll max-w-2xl mx-auto relative ">
         <div className="p-2 py-5 bg-black/30 backdrop-blur-md sticky top-0 z-10">
-          <h1 className="font-bold text-4xl text-center">emoji chat</h1>
+          <h1 className="font-bold text-4xl text-center">💬</h1>
         </div>
-        <div className="relative w-full p-6 md:px-10">
+        <div className="relative w-full p-3 md:px-10">
           {sortedMessages.map((msg) => (
             <EmojiMessage
               key={msg.id}
