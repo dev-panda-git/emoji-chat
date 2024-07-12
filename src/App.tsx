@@ -13,7 +13,7 @@ function App() {
   interface Message {
     id: string; // Unique identifier for the message
     content: string; // The actual message content (text)
-    createdAt: Date; // The timestamp of when the message was created
+    createdAt: number; // The timestamp of when the message was created
     authorId: string; // The ID of the user who sent the message (optional)
     authorName?: string; // The name of the user who sent the message (optional)
     profilePic?: string; // URL to the sender's profile picture (optional)
@@ -45,9 +45,7 @@ function App() {
     fetchMsgs();
   }, []);
 
-  const sortedMessages = messages.sort((messageA, messageB) => {
-    return messageA.createdAt.getTime() - messageB.createdAt.getTime();
-  });
+  console.log(messages.length);
 
   return (
     <div className="bg-black  relative h-screen w-screen flex items-center justify-center">
@@ -68,15 +66,20 @@ function App() {
           <h1 className="font-bold text-4xl text-center">💬</h1>
         </div>
         <div className="relative w-full p-3 md:px-10">
-          {sortedMessages.map((msg) => (
-            <EmojiMessage
-              key={msg.id}
-              emoji={msg.content}
-              author={msg.authorName}
-              time={msg.createdAt}
-              user={user}
-            />
-          ))}
+          {messages.length &&
+            messages
+              .sort((messageA, messageB) => {
+                return messageA.createdAt - messageB.createdAt;
+              })
+              .map((msg) => (
+                <EmojiMessage
+                  key={msg.id}
+                  emoji={msg.content}
+                  author={msg.authorName}
+                  time={msg.createdAt}
+                  user={user}
+                />
+              ))}
         </div>
         <EmojiForm fetchMsgs={fetchMsgs} />
       </div>
