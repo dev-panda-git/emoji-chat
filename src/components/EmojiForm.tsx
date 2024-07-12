@@ -34,15 +34,13 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
     e.preventDefault();
 
     try {
-      const d = new Date();
-      let time = d.getTime();
-      console.log(time);
+      const time = new Date().getTime();
 
       const docRef = await addDoc(collection(db, "messages"), {
         createdAt: time,
         content: inputValue,
         authorId: "",
-        authorName: "🎲",
+        authorName: "🥷",
         profilePic: "",
       }); // Add emoji to Firestore
       console.log("Document written with ID: ", docRef.id);

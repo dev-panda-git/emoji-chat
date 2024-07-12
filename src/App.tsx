@@ -45,7 +45,7 @@ function App() {
     fetchMsgs();
   }, []);
 
-  console.log(messages.length);
+  console.log(messages);
 
   return (
     <div className="bg-black  relative h-screen w-screen flex items-center justify-center">

@@ -1,10 +1,10 @@
 export const EmojiMessage = ({ emoji, author, user, time }: any) => {
-  const msgTime = new Date(time * 1000).toLocaleTimeString("en-US", {
+  const msgTime = new Date(time).toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
   });
 
-  return author === user.dp ? (
+  return author === user.displayName ? (
     <div className="relative h-[6.5rem] flex items-center text-base">
       <div className=" w-max absolute right-0">
         <div className="flex gap-2 items-end">
