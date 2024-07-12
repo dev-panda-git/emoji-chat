@@ -1,4 +1,4 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { EmojiMessage } from "./components/EmojiMessage";
@@ -48,7 +48,7 @@ function App() {
           <div className="p-5 rounded-3xl bg-green-200">🥶</div>
         </div>
       </div> */}
-      <div className="w-full h-screen overflow-y-scroll max-w-2xl mx-auto relative ">
+      <div className="w-full h-screen overflow-y-scroll max-w-2xl mx-auto relative">
         <div className="p-2 py-5 bg-black/30 backdrop-blur-md sticky top-0 z-10">
           <h1 className="font-bold text-4xl text-center">💬</h1>
         </div>
