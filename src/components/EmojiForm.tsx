@@ -1,12 +1,12 @@
 import { addDoc, collection } from "firebase/firestore";
-import React, { useState } from "react";
+
 import { db } from "../firebase";
+import { useState } from "react";
 
 export const EmojiForm = ({ fetchMsgs }: any) => {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [isPosting, setIsPosting] = useState(false);
-  const [messages, setMessages] = useState([]);
+  // const [isPosting, setIsPosting] = useState(false);
 
   const emojiRegex = /\p{Emoji_Presentation}/gu;
   const handleInputChange = (event: any) => {
@@ -29,7 +29,7 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
     //   return;
     // }
 
-    setIsPosting(true); // Set Posting state to true
+    // setIsPosting(true);
 
     e.preventDefault();
 
@@ -40,12 +40,10 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
 
       const docRef = await addDoc(collection(db, "messages"), {
         createdAt: time,
-        id: string,
         content: inputValue,
-        createdAt: Date,
-        authorId: string,
+        authorId: "",
         authorName: "🎲",
-        profilePic: string,
+        profilePic: "",
       }); // Add emoji to Firestore
       console.log("Document written with ID: ", docRef.id);
 
