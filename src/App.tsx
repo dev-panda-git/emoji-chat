@@ -7,20 +7,37 @@ import { EmojiForm } from "./components/EmojiForm";
 function App() {
   const user = {
     id: "04",
-    dp: "🍿",
+    dp: "🎲",
   };
 
-  const [inputValue, setInputValue] = useState("");
-  const [messages, setMessages] = useState([]);
+  interface Message {
+    id: string; // Unique identifier for the message
+    content: string; // The actual message content (text)
+    createdAt: Date; // The timestamp of when the message was created
+    senderId: string; // The ID of the user who sent the message (optional)
+    senderName?: string; // The name of the user who sent the message (optional)
+    profilePic?: string; // URL to the sender's profile picture (optional)
+  }
+
+  interface User {
+    id: string; // Unique identifier for the user
+    displayName: string; // User's display name
+    email?: string; // User's email address (optional)
+    phoneNumber?: string; // User's phone number (optional)
+    profilePic?: string; // URL to the user's profile picture (optional)
+    status?: string; // User's online status (optional)
+    lastActive?: Date; // Timestamp of user's last activity (optional)
+  }
+
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const fetchMsgs = async () => {
     await getDocs(collection(db, "messages")).then((querySnapshot) => {
-      const newData = querySnapshot.docs.map((doc) => ({
+      const fetchedMsgs = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      setMessages(newData);
-      console.log(messages, newData);
+      setMessages(fetchedMsgs);
     });
   };
 
@@ -31,8 +48,6 @@ function App() {
   const sortedMessages = messages.sort((messageA, messageB) => {
     return new Date(messageA.createdAt) - new Date(messageB.createdAt);
   });
-
-  console.log(sortedMessages);
 
   return (
     <div className="bg-black  relative h-screen w-screen flex items-center justify-center">

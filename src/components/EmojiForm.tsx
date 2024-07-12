@@ -39,9 +39,13 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
       console.log(time);
 
       const docRef = await addDoc(collection(db, "messages"), {
-        text: inputValue,
-        author: "🎲",
         createdAt: time,
+        id: string,
+        content: inputValue,
+        createdAt: Date,
+        authorId: string,
+        authorName: "🎲",
+        profilePic: string,
       }); // Add emoji to Firestore
       console.log("Document written with ID: ", docRef.id);
 
@@ -54,8 +58,8 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
   };
 
   return (
-    <div className="sticky  p-4 md:px-10 w-full max-w-sm  right-0 bottom-0  z-10">
-      <div className="flex relative  items-center  w-full text-2xl">
+    <div className="sticky  p-4 md:px-10 w-full flex justify-end  bottom-0 z-10">
+      <div className="flex relative  items-center max-w-[200px] text-2xl">
         <input
           type="text"
           value={inputValue}
