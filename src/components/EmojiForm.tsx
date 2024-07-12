@@ -54,20 +54,20 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
   };
 
   return (
-    <div className="sticky  p-4 md:px-10 w-full bottom-0  z-10">
+    <div className="sticky  p-4 md:px-10 w-full max-w-sm  right-0 bottom-0  z-10">
       <div className="flex relative  items-center  w-full text-2xl">
         <input
           type="text"
           value={inputValue}
           onChange={handleInputChange}
-          placeholder="Enter emoji 🍿🌈"
-          className=" w-full bg-white/30 p-4 pl-6 pr-24 rounded-2xl backdrop-blur-md"
+          placeholder="🖋"
+          className=" w-full bg-white/20 p-4 pl-6 pr-24 rounded-full backdrop-blur-md"
         />
         <button
           onClick={handleSubmit}
-          className="absolute right-1 p-3 px-6 rounded-2xl bg-white text-black"
+          className="absolute right-2 p-2 px-5 rounded-full bg-black text-2xl"
         >
-          post
+          ✒
         </button>
       </div>
     </div>
