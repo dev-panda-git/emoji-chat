@@ -5,17 +5,17 @@ import { EmojiMessage } from "./components/EmojiMessage";
 import { EmojiForm } from "./components/EmojiForm";
 
 function App() {
-  const user = {
+  const user: User = {
     id: "04",
-    dp: "🎲",
+    displayName: "🎲",
   };
 
   interface Message {
     id: string; // Unique identifier for the message
     content: string; // The actual message content (text)
     createdAt: Date; // The timestamp of when the message was created
-    senderId: string; // The ID of the user who sent the message (optional)
-    senderName?: string; // The name of the user who sent the message (optional)
+    authorId: string; // The ID of the user who sent the message (optional)
+    authorName?: string; // The name of the user who sent the message (optional)
     profilePic?: string; // URL to the sender's profile picture (optional)
   }
 
@@ -34,10 +34,10 @@ function App() {
   const fetchMsgs = async () => {
     await getDocs(collection(db, "messages")).then((querySnapshot) => {
       const fetchedMsgs = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
         id: doc.id,
+        ...doc.data(),
       }));
-      setMessages(fetchedMsgs);
+      setMessages(fetchedMsgs as Message[]);
     });
   };
 
@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   const sortedMessages = messages.sort((messageA, messageB) => {
-    return new Date(messageA.createdAt) - new Date(messageB.createdAt);
+    return messageA.createdAt.getTime() - messageB.createdAt.getTime();
   });
 
   return (
@@ -71,8 +71,8 @@ function App() {
           {sortedMessages.map((msg) => (
             <EmojiMessage
               key={msg.id}
-              emoji={msg.text}
-              author={msg.author}
+              emoji={msg.content}
+              author={msg.authorName}
               time={msg.createdAt}
               user={user}
             />
