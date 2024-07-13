@@ -4,7 +4,7 @@ export const EmojiMessage = ({ emoji, author, user, time }: any) => {
     minute: "2-digit",
   });
 
-  return author === user.displayName ? (
+  return author === user?.displayEmoji ? (
     <div className="relative h-[6.5rem] flex items-center text-base">
       <div className=" w-max absolute right-0">
         <div className="flex gap-2 items-end">
