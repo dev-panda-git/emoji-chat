@@ -1,10 +1,4 @@
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "./firebase";
 import { EmojiMessage } from "./components/EmojiMessage";
@@ -82,7 +76,7 @@ function App() {
 
   const SelectUser = async (user: User) => {
     try {
-      const userRef = await updateDoc(doc(collection(db, "users"), user.id), {
+      await updateDoc(doc(collection(db, "users"), user.id), {
         claimed: true,
       }); // Add emoji to Firestore
       setUser(user);
