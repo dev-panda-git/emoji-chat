@@ -3,7 +3,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { useState } from "react";
 
-export const EmojiForm = ({ fetchMsgs }: any) => {
+export const EmojiForm = ({ fetchMsgs, user }: any) => {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   // const [isPosting, setIsPosting] = useState(false);
@@ -54,8 +54,8 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
   };
 
   return (
-    <div className="sticky  p-4 md:px-10 w-full flex justify-end  bottom-0 z-10">
-      <div className="flex relative  items-center max-w-[200px] text-2xl">
+    <div className="sticky  p-4 md:px-10 w-full max-w-sm flex mx-auto bottom-0 z-10">
+      <div className="flex relative  items-center  text-2xl">
         <input
           type="text"
           value={inputValue}
@@ -67,7 +67,7 @@ export const EmojiForm = ({ fetchMsgs }: any) => {
           onClick={handleSubmit}
           className="absolute right-2 p-2 px-5 rounded-full bg-black text-2xl"
         >
-          ✒
+          {user?.displayEmoji || "🐋"}
         </button>
       </div>
     </div>
